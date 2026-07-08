@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Psychologue;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RendezvousConfirme;
+use App\Mail\RendezvousAnnule;
 use App\Models\Rendezvous;
 use App\Models\NotificationPlateforme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RendezvousController extends Controller
 {
@@ -51,6 +55,16 @@ class RendezvousController extends Controller
             'type'    => 'rdv',
         ]);
 
+        try {
+            $rendezvous->load(['patient', 'psychologue']);
+            Mail::to($rendezvous->patient->email)->send(new RendezvousConfirme($rendezvous));
+        } catch (\Throwable $e) {
+            Log::error('Échec email confirmation rendez-vous', [
+                'rdv_id' => $rendezvous->id,
+                'error'  => $e->getMessage(),
+            ]);
+        }
+
         return back()->with('success', 'Rendez-vous confirmé avec succès.');
     }
 
@@ -77,6 +91,16 @@ class RendezvousController extends Controller
                          ' a été annulé. Veuillez en prendre un nouveau.',
             'type'    => 'rdv',
         ]);
+
+        try {
+            $rendezvous->load(['patient', 'psychologue']);
+            Mail::to($rendezvous->patient->email)->send(new RendezvousAnnule($rendezvous));
+        } catch (\Throwable $e) {
+            Log::error('Échec email annulation rendez-vous', [
+                'rdv_id' => $rendezvous->id,
+                'error'  => $e->getMessage(),
+            ]);
+        }
 
         return back()->with('success', 'Rendez-vous annulé.');
     }

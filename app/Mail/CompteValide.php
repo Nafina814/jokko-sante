@@ -5,33 +5,27 @@ namespace App\Mail;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InscriptionConfirmation extends Mailable
+class CompteValide extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
+    public function __construct(public User $user) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Bienvenue sur Jokko Santé - Confirmation d'inscription",
+            subject: '✅ Votre compte Jokko Santé a été validé',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.inscription-confirmation',
+            view: 'emails.compte-valide',
         );
     }
 }

@@ -305,12 +305,41 @@ input:focus,select:focus,textarea:focus{
           <strong>Vérification professionnelle obligatoire</strong><br>
           Votre dossier sera examiné sous 24-48h.
         </div>
+        <div class="field">
+          <label>Numéro d'ordre <span class="req">*</span></label>
+          <input type="text" name="numero_ordre" value="{{ old('numero_ordre') }}" placeholder="Ex : PSY-2024-001">
+        </div>
+        <div class="field">
+          <label>Spécialité <span class="req">*</span></label>
+          <input type="text" name="specialite" value="{{ old('specialite') }}" placeholder="Ex : Psychologie clinique">
+        </div>
+        <div class="field">
+          <label>Établissement <span class="req">*</span></label>
+          <input type="text" name="etablissement" value="{{ old('etablissement') }}" placeholder="Ex : Hôpital Principal de Dakar">
+        </div>
       </div>
 
       <div class="role-section" id="sec-pair_aidant" style="display:none;">
         <div style="background:#f0fdf4;border:1px solid #86efac;color:#14532d;padding:14px;border-radius:12px;margin:20px 0;">
           <strong>Validation de votre engagement requise</strong><br>
           Votre demande sera examinée.
+        </div>
+        <div class="field">
+          <label>Type de pair-aidant <span class="req">*</span></label>
+          <select name="type_pair_aidant">
+            <option value="">-- Choisir --</option>
+            <option value="badienou_gokh" {{ old('type_pair_aidant')==='badienou_gokh'?'selected':'' }}>Badienou Gokh</option>
+            <option value="ong" {{ old('type_pair_aidant')==='ong'?'selected':'' }}>ONG</option>
+            <option value="benevole" {{ old('type_pair_aidant')==='benevole'?'selected':'' }}>Bénévole</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Organisation <span style="color:#5a7a55;font-weight:400;">(optionnel)</span></label>
+          <input type="text" name="organisation" value="{{ old('organisation') }}" placeholder="Ex : Croix-Rouge Sénégal">
+        </div>
+        <div class="field">
+          <label>Motivation <span class="req">*</span></label>
+          <textarea name="motivation" rows="4" placeholder="Décrivez votre motivation en au moins 50 caractères...">{{ old('motivation') }}</textarea>
         </div>
       </div>
 

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mailpit version *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8025)",
+      "Bash(curl -s http://localhost:8025/api/v1/messages)",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}

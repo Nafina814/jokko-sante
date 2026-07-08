@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RendezvousDemande;
 use App\Models\Rendezvous;
 use App\Models\User;
 use App\Models\NotificationPlateforme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RendezvousController extends Controller
 {
@@ -52,6 +55,16 @@ class RendezvousController extends Controller
                          \Carbon\Carbon::parse($request->date_heure)->format('d/m/Y à H:i'),
             'type'    => 'rdv',
         ]);
+
+        try {
+            $rdv->load(['patient', 'psychologue']);
+            Mail::to($rdv->psychologue->email)->send(new RendezvousDemande($rdv));
+        } catch (\Throwable $e) {
+            Log::error('Échec email demande rendez-vous', [
+                'rdv_id' => $rdv->id,
+                'error'  => $e->getMessage(),
+            ]);
+        }
 
         return redirect()->route('rendezvous.index')
             ->with('success', 'Votre demande de rendez-vous a été envoyée avec succès !');
