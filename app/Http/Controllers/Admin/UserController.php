@@ -11,7 +11,6 @@ use App\Models\NotificationPlateforme;
 use App\Models\Temoignage;
 use App\Models\Commentaire;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TemoignageCommentaire;
 
@@ -66,11 +65,8 @@ class UserController extends Controller
         try {
             $user->load('role');
             Mail::to($user->email)->send(new CompteValide($user));
-        } catch (\Throwable $e) {
-            Log::error('Échec email validation compte', [
-                'user_id' => $user->id,
-                'error'   => $e->getMessage(),
-            ]);
+        } catch (\Throwable) {
+            // L'action continue même si l'email échoue
         }
 
         return back()->with('success', "Compte de {$user->name} validé avec succès.");
@@ -93,11 +89,8 @@ class UserController extends Controller
         try {
             $user->load('role');
             Mail::to($user->email)->send(new CompteRejete($user));
-        } catch (\Throwable $e) {
-            Log::error('Échec email rejet compte', [
-                'user_id' => $user->id,
-                'error'   => $e->getMessage(),
-            ]);
+        } catch (\Throwable) {
+            // L'action continue même si l'email échoue
         }
 
         return back()->with('success', "Compte de {$user->name} rejeté.");

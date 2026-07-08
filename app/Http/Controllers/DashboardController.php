@@ -10,7 +10,6 @@ use App\Models\Signalement;
 use App\Models\Message;
 use App\Models\NotificationPlateforme;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -18,19 +17,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        Log::info('Dashboard accessed', [
-            'auth_check'   => Auth::check(),
-            'user_id'      => $user?->id,
-            'user_role_id' => $user?->role_id,
-            'role_loaded'  => $user?->role?->nom,
-            'session_id'   => session()->getId(),
-            'session_driver' => config('session.driver'),
-        ]);
-
         if (!$user || !$user->role) {
-            Log::warning('Dashboard redirect to login', [
-                'user' => $user?->toArray(),
-            ]);
             return redirect('/login');
         }
 

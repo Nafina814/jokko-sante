@@ -9,7 +9,6 @@ use App\Models\Rendezvous;
 use App\Models\NotificationPlateforme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class RendezvousController extends Controller
@@ -58,11 +57,8 @@ class RendezvousController extends Controller
         try {
             $rendezvous->load(['patient', 'psychologue']);
             Mail::to($rendezvous->patient->email)->send(new RendezvousConfirme($rendezvous));
-        } catch (\Throwable $e) {
-            Log::error('Échec email confirmation rendez-vous', [
-                'rdv_id' => $rendezvous->id,
-                'error'  => $e->getMessage(),
-            ]);
+        } catch (\Throwable) {
+            // L'action continue même si l'email échoue
         }
 
         return back()->with('success', 'Rendez-vous confirmé avec succès.');
@@ -95,11 +91,8 @@ class RendezvousController extends Controller
         try {
             $rendezvous->load(['patient', 'psychologue']);
             Mail::to($rendezvous->patient->email)->send(new RendezvousAnnule($rendezvous));
-        } catch (\Throwable $e) {
-            Log::error('Échec email annulation rendez-vous', [
-                'rdv_id' => $rendezvous->id,
-                'error'  => $e->getMessage(),
-            ]);
+        } catch (\Throwable) {
+            // L'action continue même si l'email échoue
         }
 
         return back()->with('success', 'Rendez-vous annulé.');

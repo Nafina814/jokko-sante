@@ -105,20 +105,9 @@ class RegisterController extends Controller
          * L'inscription continue même si Gmail rencontre un problème.
          */
         try {
-            Mail::to($user->email)->send(
-                new InscriptionConfirmation($user)
-            );
-
-            Log::info('E-mail de confirmation envoyé.', [
-                'user_id' => $user->id,
-                'email' => $user->email,
-            ]);
-        } catch (\Throwable $e) {
-            Log::error('Échec de l’envoi de l’e-mail de confirmation.', [
-                'user_id' => $user->id,
-                'email' => $user->email,
-                'error' => $e->getMessage(),
-            ]);
+            Mail::to($user->email)->send(new InscriptionConfirmation($user));
+        } catch (\Throwable) {
+            // L’inscription continue même si l’email échoue
         }
 
         if (in_array($role, ['psychologue', 'pair_aidant'], true)) {
