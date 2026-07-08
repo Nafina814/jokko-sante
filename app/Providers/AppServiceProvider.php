@@ -22,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
+            // ShipiiX termine TLS au niveau du proxy et envoie HTTP en interne.
+            // Le flag Secure sur le cookie de session doit être false sinon
+            // le navigateur ne renvoie jamais le cookie sur les requêtes internes HTTP.
+            config(['session.secure' => false]);
         }
     }
 }

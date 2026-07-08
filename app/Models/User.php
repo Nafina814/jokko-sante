@@ -16,6 +16,9 @@ class User extends Authenticatable
         'name', 'email', 'password',
         'role_id', 'telephone', 'genre',
         'universite', 'anonyme', 'actif',
+        'numero_ordre', 'specialite', 'etablissement',
+        'type_pair_aidant', 'motivation', 'organisation',
+        'statut_validation',
     ];
 
     protected $hidden = ['password', 'remember_token'];
