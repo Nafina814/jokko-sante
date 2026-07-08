@@ -29,16 +29,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// DEBUG TEMPORAIRE — à supprimer après vérification
-Route::get('/debug-https', function () {
-    return response()->json([
-        'url'             => request()->url(),
-        'isSecure'        => request()->isSecure(),
-        'x-forwarded-proto' => request()->header('X-Forwarded-Proto'),
-        'x-forwarded-for'   => request()->header('X-Forwarded-For'),
-    ]);
-});
-
 // ── AUTHENTIFICATION ──
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
