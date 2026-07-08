@@ -22,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
     {
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
+
+            // ShipiiX gère SESSION_DOMAIN automatiquement et le met à un
+            // hostname interne, ce qui casse les cookies entre requêtes.
+            // On force le domaine à null pour que le cookie soit valide
+            // sur tout le domaine de l'app.
+            config(['session.domain' => null]);
         }
     }
 }
