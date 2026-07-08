@@ -7,7 +7,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // CREATE TABLE IF NOT EXISTS contourne le bug hasTable() de MySQL
+        // Recrée la table cache si elle est absente (fix ShipiiX)
         DB::statement("
             CREATE TABLE IF NOT EXISTS `cache` (
                 `key` varchar(255) NOT NULL,
@@ -27,20 +27,6 @@ return new class extends Migration
                 KEY `cache_locks_expiration_index` (`expiration`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
         ");
-
-        $roles = [
-            ['nom' => 'admin',       'description' => 'Administrateur de la plateforme'],
-            ['nom' => 'psychologue', 'description' => 'Professionnel de santé mentale'],
-            ['nom' => 'utilisateur', 'description' => 'Étudiant ou femme bénéficiaire'],
-            ['nom' => 'pair_aidant', 'description' => 'Badienou Gokh ou pair-aidant'],
-        ];
-
-        foreach ($roles as $role) {
-            DB::table('roles')->updateOrInsert(
-                ['nom' => $role['nom']],
-                array_merge($role, ['created_at' => now(), 'updated_at' => now()])
-            );
-        }
     }
 
     public function down(): void

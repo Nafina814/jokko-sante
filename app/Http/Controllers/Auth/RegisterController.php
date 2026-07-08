@@ -71,13 +71,11 @@ class RegisterController extends Controller
 
         $validated = $request->validate($rules, $messages);
 
-        $roleMap = [
-            'utilisateur' => 3,
-            'psychologue' => 2,
-            'pair_aidant' => 4,
-        ];
+        $roleId = \DB::table('roles')->where('nom', $role)->value('id');
 
-        $roleId = $roleMap[$role];
+        if (!$roleId) {
+            return back()->withErrors(['role' => 'Rôle invalide. Veuillez réessayer.'])->withInput();
+        }
         $statutValidation = in_array($role, ['psychologue', 'pair_aidant'], true)
             ? 'en_attente'
             : 'valide';
