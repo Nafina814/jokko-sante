@@ -5,89 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rendez-vous confirmé — Jokko Santé</title>
 </head>
-<body style="margin:0;padding:0;background:#F5F9F4;font-family:'Helvetica Neue',Arial,sans-serif;">
-<div style="max-width:580px;margin:40px auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 0;">
+  <tr><td align="center">
+  <table width="580" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e0e0e0;">
 
-  <div style="background:linear-gradient(135deg,#1A3D16,#2D5A27);padding:36px 40px;text-align:center;">
-    <div style="width:64px;height:64px;background:rgba(232,245,228,.15);border:1px solid rgba(232,245,228,.25);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
-      <span style="font-size:2rem;">✅</span>
-    </div>
-    <h1 style="font-size:1.6rem;font-weight:700;color:white;margin:0 0 6px;">JokkoSanté</h1>
-    <p style="color:rgba(255,255,255,.55);font-size:.8rem;margin:0;letter-spacing:.06em;text-transform:uppercase;">Plateforme de santé mentale · Sénégal</p>
-  </div>
+    {{-- HEADER --}}
+    <tr>
+      <td style="background:#1A3D16;padding:32px 40px;text-align:center;">
+        <p style="font-size:22px;font-weight:bold;color:#ffffff;margin:0 0 4px;">Jokko Santé</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.65);margin:0;letter-spacing:1px;text-transform:uppercase;">Plateforme de santé mentale — Sénégal</p>
+      </td>
+    </tr>
 
-  <div style="padding:40px;">
+    {{-- CORPS --}}
+    <tr>
+      <td style="padding:36px 40px;">
 
-    <h2 style="font-size:1.35rem;color:#0f2410;margin:0 0 8px;font-weight:600;">
-      Bonjour {{ $rendezvous->patient->name }} 👋
-    </h2>
+        <p style="font-size:18px;color:#1a1a1a;font-weight:bold;margin:0 0 8px;">Bonjour {{ $rendezvous->patient->name }},</p>
 
-    <p style="color:#5a7a55;font-size:.9rem;line-height:1.85;margin:0 0 24px;">
-      Bonne nouvelle ! Votre rendez-vous avec
-      <strong style="color:#1A3D16;">Dr. {{ $rendezvous->psychologue->name }}</strong>
-      a été <strong>confirmé</strong>.
-    </p>
+        <p style="font-size:14px;color:#555555;line-height:1.7;margin:0 0 24px;">
+          Votre rendez-vous avec <strong style="color:#1A3D16;">Dr. {{ $rendezvous->psychologue->name }}</strong>
+          a été <strong>confirmé</strong>.
+        </p>
 
-    {{-- Badge succès --}}
-    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:14px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:12px;">
-      <span style="font-size:1.4rem;">✅</span>
-      <div>
-        <p style="color:#166534;font-size:.88rem;font-weight:700;margin:0 0 3px;">Rendez-vous confirmé</p>
-        <p style="color:#166534;font-size:.8rem;margin:0;opacity:.8;">Pensez à vous connecter le jour J.</p>
-      </div>
-    </div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;margin-bottom:24px;">
+          <tr><td style="padding:14px 18px;">
+            <p style="font-size:13px;font-weight:bold;color:#166534;margin:0 0 2px;">Rendez-vous confirmé</p>
+            <p style="font-size:12px;color:#166534;margin:0;">Pensez à vous connecter le jour J.</p>
+          </td></tr>
+        </table>
 
-    {{-- Détails RDV --}}
-    <div style="background:#f8fdf6;border:1px solid #e8f5e4;border-radius:14px;padding:20px;margin-bottom:28px;">
-      <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2D5A27;margin:0 0 12px;">Détails de votre rendez-vous</p>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr>
-          <td style="padding:6px 0;font-size:.82rem;color:#5a7a55;width:35%;">Psychologue</td>
-          <td style="padding:6px 0;font-size:.82rem;color:#0f2410;font-weight:600;">Dr. {{ $rendezvous->psychologue->name }}</td>
-        </tr>
-        <tr>
-          <td style="padding:6px 0;font-size:.82rem;color:#5a7a55;border-top:1px solid #e8f5e4;">Date & heure</td>
-          <td style="padding:6px 0;font-size:.82rem;color:#0f2410;font-weight:600;border-top:1px solid #e8f5e4;">
-            {{ $rendezvous->date_heure->format('d/m/Y à H:i') }}
-          </td>
-        </tr>
-        @if($rendezvous->motif)
-        <tr>
-          <td style="padding:6px 0;font-size:.82rem;color:#5a7a55;border-top:1px solid #e8f5e4;">Motif</td>
-          <td style="padding:6px 0;font-size:.82rem;color:#0f2410;font-weight:600;border-top:1px solid #e8f5e4;">{{ $rendezvous->motif }}</td>
-        </tr>
-        @endif
-      </table>
-    </div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fdf6;border:1px solid #e8f5e4;border-radius:6px;margin-bottom:24px;">
+          <tr><td style="padding:16px 18px;">
+            <p style="font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#2D5A27;margin:0 0 12px;">Détails de votre rendez-vous</p>
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:5px 0;font-size:13px;color:#777777;width:35%;">Psychologue</td>
+                <td style="padding:5px 0;font-size:13px;color:#1a1a1a;font-weight:bold;">Dr. {{ $rendezvous->psychologue->name }}</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 0;font-size:13px;color:#777777;border-top:1px solid #e8f5e4;">Date et heure</td>
+                <td style="padding:5px 0;font-size:13px;color:#1a1a1a;font-weight:bold;border-top:1px solid #e8f5e4;">{{ $rendezvous->date_heure->format('d/m/Y à H:i') }}</td>
+              </tr>
+              @if($rendezvous->motif)
+              <tr>
+                <td style="padding:5px 0;font-size:13px;color:#777777;border-top:1px solid #e8f5e4;">Motif</td>
+                <td style="padding:5px 0;font-size:13px;color:#1a1a1a;font-weight:bold;border-top:1px solid #e8f5e4;">{{ $rendezvous->motif }}</td>
+              </tr>
+              @endif
+            </table>
+          </td></tr>
+        </table>
 
-    {{-- CTA --}}
-    <div style="text-align:center;margin-bottom:28px;">
-      <a href="{{ url('/rendezvous') }}"
-         style="display:inline-block;background:linear-gradient(135deg,#1A3D16,#3A6B2F);color:white;text-decoration:none;padding:14px 36px;border-radius:12px;font-size:.95rem;font-weight:700;box-shadow:0 6px 20px rgba(26,61,22,.25);">
-        📅 Voir mes rendez-vous
-      </a>
-    </div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+          <tr><td align="center">
+            <a href="{{ url('/rendezvous') }}" style="display:inline-block;background:#1A3D16;color:#ffffff;text-decoration:none;padding:14px 36px;border-radius:6px;font-size:14px;font-weight:bold;">
+              Voir mes rendez-vous
+            </a>
+          </td></tr>
+        </table>
 
-    <div style="border-top:1px solid #e8f5e4;padding-top:16px;text-align:center;">
-      <p style="font-size:.76rem;color:#5a7a55;">
-        🚨 En cas d'urgence :
-        <strong style="color:#dc2626;">116</strong> (SAMU Social) ·
-        <strong style="color:#dc2626;">17</strong> (Police) ·
-        <strong style="color:#dc2626;">800 00 19 19</strong> (SOS Femmes, gratuit)
-      </p>
-    </div>
+        <p style="font-size:12px;color:#777777;text-align:center;border-top:1px solid #e8f5e4;padding-top:16px;margin:0;">
+          En cas d'urgence : <strong style="color:#dc2626;">116</strong> (SAMU Social) &nbsp;·&nbsp;
+          <strong style="color:#dc2626;">17</strong> (Police) &nbsp;·&nbsp;
+          <strong style="color:#dc2626;">800 00 19 19</strong> (SOS Femmes, gratuit)
+        </p>
 
-  </div>
+      </td>
+    </tr>
 
-  <div style="background:#0f2410;padding:24px 40px;text-align:center;">
-    <p style="color:rgba(255,255,255,.5);font-size:.76rem;margin:0 0 6px;">
-      © {{ date('Y') }} Jokko Santé · Plateforme de santé mentale · Sénégal
-    </p>
-    <p style="color:rgba(255,255,255,.25);font-size:.7rem;margin:0;">
-      Cet email a été envoyé automatiquement. Ne pas répondre à cet email.
-    </p>
-  </div>
+    {{-- FOOTER --}}
+    <tr>
+      <td style="background:#1a1a1a;padding:20px 40px;text-align:center;">
+        <p style="font-size:12px;color:rgba(255,255,255,0.5);margin:0 0 4px;">
+          &copy; {{ date('Y') }} Jokko Santé &nbsp;·&nbsp; Plateforme de santé mentale &nbsp;·&nbsp; Sénégal
+        </p>
+        <p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0;">
+          Cet email a été envoyé automatiquement. Ne pas répondre.
+        </p>
+      </td>
+    </tr>
 
-</div>
+  </table>
+  </td></tr>
+</table>
 </body>
 </html>
