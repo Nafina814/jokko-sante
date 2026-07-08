@@ -6,7 +6,9 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8025)",
       "Bash(curl -s http://localhost:8025/api/v1/messages)",
       "Bash(python3 -c ' *)",
-      "Bash(curl -s \"https://nafi-api.shipiix.piitech.dev/debug-https\")"
+      "Bash(curl -s \"https://nafi-api.shipiix.piitech.dev/debug-https\")",
+      "Bash(curl -s \"https://nafi-api.shipiix.piitech.dev/register\" -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s \"https://nafi-api.shipiix.piitech.dev/\" -o /dev/null -w \"%{http_code}\")"
     ]
   }
 }
