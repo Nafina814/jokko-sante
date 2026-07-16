@@ -74,7 +74,7 @@ public function show(Temoignage $temoignage)
     $temoignage->load(['auteur', 'commentaires.auteur']);
 
     // Optionnel : seulement les témoignages publiés
-    if ($temoignage->statut !== 'publié' && !auth()->user()?->isAdmin()) {
+    if ($temoignage->statut !== 'publie' && !auth()->user()?->isAdmin()) {
         abort(403, 'Ce témoignage n\'est pas encore publié.');
     }
 
